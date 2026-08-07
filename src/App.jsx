@@ -55,7 +55,7 @@ export default function App() {
       </div>
       <div className="hint">Tap a day to mark it as Office, WFH, or Holiday.</div>
 
-      <footer>Saved only in this browser · nothing is sent anywhere</footer>
+      
 
       <DayPickerModal
         date={pickerDate}
