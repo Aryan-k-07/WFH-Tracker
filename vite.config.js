@@ -5,5 +5,5 @@ import react from '@vitejs/plugin-react'
 // If your repo is github.com/yourname/wfh-tracker, this should be '/wfh-tracker/'.
 export default defineConfig({
   plugins: [react()],
-  base: '/WFH-tracker/',
+  base: '/WFH-Tracker/',
 })
