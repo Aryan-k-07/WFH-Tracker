@@ -49,14 +49,10 @@ export function computeStats(entries) {
     const d = new Date(cur)
     const key = fmt(d)
     if (!isWeekend(d) && !isOfficialHoliday(d)) {
+      workingDays++ // Count all weekdays (including holiday/leave days)
       const status = entries[key]
-      if (status === 'holiday') {
-        // excluded from working days (user-marked holiday)
-      } else {
-        workingDays++
-        if (status === 'office') officeDays++
-        else if (status === 'wfh') wfhDays++
-      }
+      if (status === 'office') officeDays++
+      else if (status === 'wfh') wfhDays++
     }
     cur.setDate(cur.getDate() + 1)
   }
@@ -64,16 +60,25 @@ export function computeStats(entries) {
   const requiredOffice = Math.ceil(workingDays * (THRESHOLD / 100))
   const wfhBudget = Math.max(workingDays - requiredOffice, 0)
   const wfhRemaining = Math.max(wfhBudget - wfhDays, 0)
-  const marked = officeDays + wfhDays
-  const inOfficeRate = marked > 0 ? (officeDays / marked) * 100 : null
+  const inOfficeRate = workingDays > 0 ? (officeDays / workingDays) * 100 : null
 
   let daysLeft = 0
   let scan = new Date(start)
+  console.log(scan)
   while (scan <= end) {
     const key = fmt(scan)
-    if (key > todayStr && !isWeekend(scan) && !isOfficialHoliday(scan) && entries[key] !== 'holiday') daysLeft++
+    console.log(entries[key])
+    if (!isWeekend(scan) && !isOfficialHoliday(scan)) {
+      // Count unmarked working days from today onwards
+      
+      if (!entries[key]) daysLeft++
+      else {
+        if(entries[key]==="holiday") daysLeft++
+      }
+    }
     scan.setDate(scan.getDate() + 1)
   }
+  console.log("daysLeft: ", daysLeft)
 
   return {
     threshold: THRESHOLD,
@@ -85,7 +90,6 @@ export function computeStats(entries) {
     wfhBudget,
     wfhRemaining,
     inOfficeRate,
-    marked,
     daysLeft,
   }
 }
