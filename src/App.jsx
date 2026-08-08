@@ -34,8 +34,8 @@ export default function App() {
     <div className="wrap">
       <header>
         <div>
-          
-          <h1>WFH Tracker</h1>
+          <div className="eyebrow">Office Attendance</div>
+          <h1>The Register</h1>
         </div>
       </header>
 
@@ -50,12 +50,13 @@ export default function App() {
 
       <div className="legend">
         <span><i className="lg-office" /> Office</span>
-        <span><i className="lg-wfh" /> WFH</span>
+        <span><i className="lg-wfh" /> Work From Home</span>
         <span><i className="lg-holiday" /> Holiday</span>
+        <span><i className="lg-official-holiday" /> Official Holiday</span>
       </div>
-      <div className="hint">Tap a day to mark it as Office, WFH, or Holiday.</div>
+      <div className="hint">Tap a weekday to mark it as Office, Work From Home, or Holiday. Official holidays and weekends are not clickable.</div>
 
-      
+      <footer>Saved only in this browser · nothing is sent anywhere</footer>
 
       <DayPickerModal
         date={pickerDate}
