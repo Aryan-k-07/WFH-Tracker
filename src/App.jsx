@@ -54,9 +54,9 @@ export default function App() {
         <span><i className="lg-holiday" /> Holiday</span>
         <span><i className="lg-official-holiday" /> Official Holiday</span>
       </div>
-      <div className="hint">Tap a weekday to mark it as Office, Work From Home, or Holiday. Official holidays and weekends are not clickable.</div>
+      <div className="hint">Tap a weekday to mark it as Office, Work From Home, or Holiday.</div>
 
-      <footer>Saved only in this browser · nothing is sent anywhere</footer>
+      
 
       <DayPickerModal
         date={pickerDate}
