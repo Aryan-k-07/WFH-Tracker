@@ -53,6 +53,7 @@ h1 { font-family: 'Fraunces', serif; font-weight: 600; font-size: 34px; letter-s
 .day:not(.empty):hover { border-color: var(--ink); }
 .day-num { font-size: 13px; }
 .day.weekend { background: var(--parchment-deep); }
+.day.official-holiday { background: repeating-linear-gradient(45deg, var(--parchment-deep), var(--parchment-deep) 8px, #fff 8px, #fff 10px); color: var(--rest); cursor: default; }
 .day.office { background: var(--office-soft); border-color: var(--office); }
 .day.office .day-num { color: var(--office); font-weight: 700; }
 .day.wfh { background: var(--wfh-soft); border-color: var(--wfh); }
@@ -71,6 +72,7 @@ h1 { font-family: 'Fraunces', serif; font-weight: 600; font-size: 34px; letter-s
 .legend .lg-office { background: var(--office-soft); border: 1px solid var(--office); }
 .legend .lg-wfh { background: var(--wfh-soft); border: 1px solid var(--wfh); }
 .legend .lg-holiday { background: var(--holiday-soft); border: 1px solid var(--holiday); }
+.legend .lg-official-holiday { background: repeating-linear-gradient(45deg, var(--parchment-deep), var(--parchment-deep) 4px, #fff 4px, #fff 6px); border: 1px solid var(--line); }
 
 .hint { font-size: 12px; color: var(--ink-soft); margin-bottom: 30px; }
 
