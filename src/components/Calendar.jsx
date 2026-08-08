@@ -1,4 +1,4 @@
-import { fmt, isWeekend } from '../utils'
+import { fmt, isWeekend, isOfficialHoliday } from '../utils'
 
 const WEEKDAYS = ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su']
 
@@ -21,15 +21,17 @@ export default function Calendar({ entries, onDayClick, viewMonth, setViewMonth 
     const d = new Date(y, m, day)
     const key = fmt(d)
     const weekend = isWeekend(d)
+    const official = isOfficialHoliday(d)
     const status = entries[key]
 
     let cls = 'day'
     if (key === todayStr) cls += ' today'
     if (weekend) cls += ' weekend'
+    if (official) cls += ' official-holiday'
     if (status) cls += ` ${status}`
 
     cells.push(
-      <div key={key} className={cls} onClick={() => { if (!weekend) onDayClick(d) }}>
+      <div key={key} className={cls} onClick={() => { if (!weekend && !official) onDayClick(d) }}>
         <span className="day-num">{day}</span>
         {status && <span className={`dot ${status}`} />}
       </div>
