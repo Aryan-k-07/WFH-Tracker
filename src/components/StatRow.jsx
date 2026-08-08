@@ -14,9 +14,9 @@ export default function StatRow({ entries }) {
       </div>
 
       <div className="stat">
-        <div className="stat-label">WFH used</div>
+        <div className="stat-label">In Office attendance</div>
         <div className={'stat-value' + (s.wfhDays > s.wfhBudget ? ' warn' : '')}>
-          {s.wfhDays} / {s.wfhBudget}
+          {s.officeDays} / {s.workingDays-s.wfhBudget}
         </div>
         <div className="stat-sub">days used out of your budget</div>
       </div>
