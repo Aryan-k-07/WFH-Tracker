@@ -34,8 +34,8 @@ export default function App() {
     <div className="wrap">
       <header>
         <div>
-          <div className="eyebrow">Office Attendance</div>
-          <h1>The Register</h1>
+          
+          <h1>WFH Tracker</h1>
         </div>
       </header>
 
