@@ -10,6 +10,20 @@ export const isWeekend = (d) => {
 export const formatPretty = (d) =>
   d.toLocaleDateString('en-GB', { weekday: 'long', day: '2-digit', month: 'short', year: 'numeric' })
 
+// Official holidays (month-day format, applies to all years)
+const OFFICIAL_HOLIDAYS = [
+  '09-14', // Ganesh Chaturthi
+  '10-02', // Gandhi Jayanti
+  '11-09', // Diwali
+  '11-10', // Diwali
+  '12-25', // Christmas
+]
+
+export function isOfficialHoliday(d) {
+  const monthDay = `${pad(d.getMonth() + 1)}-${pad(d.getDate())}`
+  return OFFICIAL_HOLIDAYS.includes(monthDay)
+}
+
 // The quarter the current date falls in: Jan-Mar, Apr-Jun, Jul-Sep, Oct-Dec.
 // Change this if your company's quarters run on a different cycle (e.g. Apr-Jun start).
 export function currentQuarterRange() {
@@ -34,11 +48,10 @@ export function computeStats(entries) {
   while (cur <= end) {
     const d = new Date(cur)
     const key = fmt(d)
-    if (!isWeekend(d)) {
+    if (!isWeekend(d) && !isOfficialHoliday(d)) {
       const status = entries[key]
       if (status === 'holiday') {
-        // excluded from working days
-        
+        // excluded from working days (user-marked holiday)
       } else {
         workingDays++
         if (status === 'office') officeDays++
@@ -52,13 +65,13 @@ export function computeStats(entries) {
   const wfhBudget = Math.max(workingDays - requiredOffice, 0)
   const wfhRemaining = Math.max(wfhBudget - wfhDays, 0)
   const marked = officeDays + wfhDays
-  const inOfficeRate = marked > 0 ? (officeDays / workingDays) * 100 : null
+  const inOfficeRate = marked > 0 ? (officeDays / marked) * 100 : null
 
   let daysLeft = 0
   let scan = new Date(start)
   while (scan <= end) {
     const key = fmt(scan)
-    if (key > todayStr && !isWeekend(scan) && entries[key] !== 'holiday') daysLeft++
+    if (key > todayStr && !isWeekend(scan) && !isOfficialHoliday(scan) && entries[key] !== 'holiday') daysLeft++
     scan.setDate(scan.getDate() + 1)
   }
 
